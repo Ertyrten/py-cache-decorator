@@ -11,7 +11,8 @@ def cache(func: Callable) -> Callable:
         """
         The wrapper function that handles caching logic.
         """
-        key = (args, frozenset(kwargs.items()))
+        # FIX: The key now includes the function itself to keep caches separate
+        key = (func, args, frozenset(kwargs.items()))
 
         if key in cache_storage:
             return cache_storage[key]
